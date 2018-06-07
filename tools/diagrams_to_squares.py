@@ -5,12 +5,13 @@
 
 import numpy as np
 import cv2
-from os import listdir
+from os import listdir, rename
 from os.path import isfile, join
 
 ################################################################################
 # Set paths:
-input_dataset = '../datasets/diagrams'
+input_dataset = '../datasets/diagrams/unused'
+output_dataset_diagrams = '../datasets/diagrams'
 output_dataset = '../datasets/unlabeled_squares'
 output_dataset_black = output_dataset + '/black'
 output_dataset_white = output_dataset + '/white'
@@ -73,6 +74,8 @@ for f in files:
         nameOfFile = output_dataset_white + "/square" + str(count + 1) + ".jpg"
         cv2.imwrite(nameOfFile, smallSquare)
         count += 1
+    rename(input_dataset + '/' + f,
+           output_dataset_diagrams + '/' + f)
 
 ################################################################################
 # Save counter

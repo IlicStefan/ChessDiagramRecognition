@@ -4,7 +4,7 @@
 
 import numpy as np
 import cv2
-from os import listdir
+from os import listdir, remove
 from os.path import isfile, join
 import sys
 
@@ -13,7 +13,7 @@ from detection import getDiagramPosition
 ################################################################################
 # Set paths:
 input_dataset = '../datasets/raw_diagrams'
-output_dataset = '../datasets/diagrams'
+output_dataset = '../datasets/diagrams/unused'
 ################################################################################
 
 # functions
@@ -33,6 +33,7 @@ for f in files:
     x, y, w, h = getDiagramPosition(raw_diagram)
     nameOfFile = output_dataset + "/d" + str(count + 1) + ".jpg"
     cv2.imwrite(nameOfFile, raw_diagram[y+1:y+h-1, x+1:x+w-1])
+    remove(input_dataset + '/' + f)
     count += 1
     
 ################################################################################
