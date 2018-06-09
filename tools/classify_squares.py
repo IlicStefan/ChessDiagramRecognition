@@ -43,6 +43,8 @@ def classify():
     if i >= len(squares):
         print 'No more files!'
         sys.exit()
+    else:
+        print i, '/', len(squares)
     showImage(path + squares[i])
     
     
