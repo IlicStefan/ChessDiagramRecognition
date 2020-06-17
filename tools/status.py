@@ -2,7 +2,6 @@
 # Print number of files for each dataset
 ################################################################################
 
-import sys
 from os import listdir
 from os.path import isfile, isdir, join, abspath, dirname
 
@@ -15,7 +14,7 @@ dataset_squares = "../datasets/squares"
 
 def get_absolute_path(relative_path):
     assert type(relative_path) is str, "relative_path must be a string"
-    absolute_path = abspath(dirname(sys.argv[0])) + "/" + relative_path
+    absolute_path = abspath(dirname(__file__)) + "/" + relative_path
     assert isdir(absolute_path), "'%s' must be a valid directory path" % absolute_path
     return absolute_path
 
