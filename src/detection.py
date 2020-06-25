@@ -5,21 +5,25 @@
 import numpy as np
 import cv2 as cv
 
-def getDiagramPosition(color_img):
-    #preprocessing
-    img = cv.cvtColor(color_img, cv.COLOR_BGR2GRAY)
-    img = cv.adaptiveThreshold(img.astype(np.uint8),
-                               255,
-                               cv.ADAPTIVE_THRESH_MEAN_C,
-                               cv.THRESH_BINARY,
-                               11,
-                               3)
-    img = 255 - img
+
+def get_diagram_position(color_image):
+    assert isinstance(color_image, (np.ndarray, np.generic)), "color_image must be a numpy array"
+    assert color_image.shape == ()
+
+    # preprocessing
+    image = cv.cvtColor(color_image, cv.COLOR_BGR2GRAY)
+    image = cv.adaptiveThreshold(image.astype(np.uint8),
+                                 255,
+                                 cv.ADAPTIVE_THRESH_MEAN_C,
+                                 cv.THRESH_BINARY,
+                                 11,
+                                 3)
+    image = 255 - image
     kernel = cv.getStructuringElement(cv.MORPH_ELLIPSE, (2, 2))
-    img = cv.morphologyEx(img, cv.MORPH_CLOSE, kernel)
+    image = cv.morphologyEx(image, cv.MORPH_CLOSE, kernel)
     
     #crop diagram
-    _, contours, h = cv.findContours(img,
+    _, contours, h = cv.findContours(image,
                                      cv.RETR_TREE,
                                      cv.CHAIN_APPROX_SIMPLE)
     contour = max(contours, key=cv.contourArea)

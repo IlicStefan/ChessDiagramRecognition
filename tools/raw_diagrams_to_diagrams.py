@@ -12,8 +12,8 @@ sys.path.insert(0, '../src')
 from detection import getDiagramPosition
 ################################################################################
 # Set paths:
-input_dataset = '../datasets/raw_diagrams'
-output_dataset = '../datasets/diagrams/unused'
+input_dataset = "../datasets/raw_diagrams"
+output_dataset = "../datasets/diagrams/unused"
 ################################################################################
 
 # functions
@@ -22,7 +22,7 @@ output_dataset = '../datasets/diagrams/unused'
 ################################################################################
 # Read 'count' from file
 
-countFile = open(("count_diagrams.txt"), 'r')
+countFile = open("count_diagrams.txt", 'r')
 count = int(countFile.readline().strip())
 countFile.close()
 ################################################################################
@@ -39,7 +39,7 @@ for f in files:
 ################################################################################
 # Save counter
 
-countFile = open(("count_diagrams.txt"), 'w')
+countFile = open("count_diagrams.txt", "w")
 countFile.write(str(count))
 countFile.close()
 ################################################################################
