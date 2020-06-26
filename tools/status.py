@@ -1,14 +1,14 @@
 ################################################################################
 # Print number of files for each dataset
 ################################################################################
-
 from squares_ids import get_squares_ids_absolute_paths
 from relative_to_absolute_path import get_absolute_path
 from os import listdir
 from os.path import isfile, join, basename
+
 ################################################################################
 # Set paths:
-dataset_diagrams = "../datasets/diagrams"
+dataset_diagrams: str = "../datasets/diagrams"
 ################################################################################
 
 
@@ -16,7 +16,7 @@ def print_status_squares() -> None:
     print("************************************************************")
     print("S Q U A R E S")
     print()
-    paths: dir = get_squares_ids_absolute_paths()
+    paths: dict = get_squares_ids_absolute_paths()
 
     print("black_square:")
     for path in paths:

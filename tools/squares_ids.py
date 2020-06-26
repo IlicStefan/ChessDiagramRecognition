@@ -1,9 +1,9 @@
 from relative_to_absolute_path import get_absolute_path
-
 import json
+
 ################################################################################
 # Set paths:
-dataset_squares = "../datasets/squares"
+dataset_squares: str = "../datasets/squares"
 ################################################################################
 
 
@@ -17,7 +17,7 @@ def get_squares_ids() -> dict:
 
 def get_squares_ids_absolute_paths() -> dict:
     squares_ids: dict = get_squares_ids()
-    result = {}
+    result: dict = {}
     for square_color, pieces in squares_ids.items():
         for piece, piece_id in pieces.items():
             relative_path = dataset_squares + "/" + square_color + "/" + piece
