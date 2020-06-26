@@ -1,78 +1,59 @@
 ################################################################################
 # Print number of files for each dataset
 ################################################################################
-
+from squares_ids import get_squares_ids_absolute_paths
+from relative_to_absolute_path import get_absolute_path
 from os import listdir
-from os.path import isfile, isdir, join, abspath, dirname
+from os.path import isfile, join, basename
 
 ################################################################################
 # Set paths:
-dataset_diagrams = "../datasets/diagrams"
-dataset_squares = "../datasets/squares"
+dataset_diagrams: str = "../datasets/diagrams"
 ################################################################################
 
 
-def get_absolute_path(relative_path):
-    assert type(relative_path) is str, "relative_path must be a string"
-    absolute_path = abspath(dirname(__file__)) + "/" + relative_path
-    assert isdir(absolute_path), "'%s' must be a valid directory path" % absolute_path
-    return absolute_path
+def print_status_squares() -> None:
+    print("************************************************************")
+    print("S Q U A R E S")
+    print()
+    paths: dict = get_squares_ids_absolute_paths()
+
+    print("black_square:")
+    for path in paths:
+        if "black_square" in path:
+            number_of_squares = len(
+                [f for f in listdir(path) if isfile(join(path, f))]
+            )
+            print("\t" + basename(path), ":", number_of_squares)
+
+    print("white_square:")
+    for path in paths:
+        if "white_square" in path:
+            number_of_squares = len(
+                [f for f in listdir(path) if isfile(join(path, f))]
+            )
+            print("\t" + basename(path), ":", number_of_squares)
+
+    print("************************************************************")
 
 
-def print_status_diagrams(dataset):
+def print_status_diagrams(dataset) -> None:
     print("************************************************************")
     print("D I A G R A M S")
     print()
-    number_of_diagrams = len(
+    number_of_diagrams: int = len(
         [f for f in listdir(dataset) if isfile(join(dataset, f))]
     )
     print("diagrams: " + str(number_of_diagrams))
     print("************************************************************")
-
-
-def print_status_squares(dataset):
-    print("************************************************************")
-    print("S Q U A R E S")
-    print()
-    options = [
-        "empty",
-        "black_bishop",
-        "black_king",
-        "black_knight",
-        "black_pawn",
-        "black_queen",
-        "black_rook",
-        "white_bishop",
-        "white_king",
-        "white_knight",
-        "white_pawn",
-        "white_queen",
-        "white_rook",
-    ]
-    print_status_for_squares(dataset, "black_square", options)
-    print_status_for_squares(dataset, "white_square", options)
-    print("************************************************************")
-
-
-def print_status_for_squares(dataset, color, options):
-    print(color)
-    for option in options:
-        print("\t", end="")
-        print(option, end="")
-        print(": ", end="")
-        directory = dataset + "/" + color + "/" + option
-        number_of_squares = len(
-            [f for f in listdir(directory) if isfile(join(directory, f))]
-        )
-        print(number_of_squares)
 
 ################################################################################
 ################################################################################
 
 
 def main():
-    print_status_diagrams(get_absolute_path(dataset_diagrams))
-    print_status_squares(get_absolute_path(dataset_squares))
+    print_status_diagrams(get_absolute_path(dataset_diagrams, __file__))
+    print_status_squares()
 
 
 main()
