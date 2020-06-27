@@ -12,8 +12,8 @@ import os
 
 ################################################################################
 # Set paths:
-input_dataset = "../datasets/unlabeled_squares/"
-output_dataset = "../datasets/squares/"
+input_dataset: str = "../datasets/unlabeled_squares/"
+output_dataset: str = "../datasets/squares/"
 ################################################################################
 
 OPTIONS = [
@@ -65,8 +65,10 @@ def loadImage(squarePath):
 
 ################################################################################
 ################################################################################
+
+
 if len(sys.argv) < 2:
-    prin("Usage:\npython classify.py [black|white]")
+    print("Usage:\npython classify.py [black|white]")
     sys.exit()
 
 path = input_dataset + sys.argv[1]
@@ -78,19 +80,19 @@ if len(squares) == 0:
 
 path += "/"
 
-root = tkinter.Tk()
+root = tk.Tk()
 root.minsize(300, 300)
 
 imgtk = loadImage(path + squares[i])
-labelImage = Tkinter.Label(root, image = imgtk)
+labelImage = tk.Label(root, image = imgtk)
 labelImage.pack()
 
-menu = Tkinter.StringVar(root)
+menu = tk.StringVar(root)
 menu.set(OPTIONS[0])
-option = apply(Tkinter.OptionMenu, (root, menu) + tuple(OPTIONS))
+option = apply(tk.OptionMenu, (root, menu) + tuple(OPTIONS))
 option.pack()
 
-button = Tkinter.Button(root, text="classify", command=classify)
+button = tk.Button(root, text="classify", command=classify)
 button.pack()
 
 root.mainloop()

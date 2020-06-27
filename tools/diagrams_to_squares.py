@@ -3,18 +3,17 @@
 # and put all squares in 'unlabeled squares'
 ################################################################################
 
-import numpy as np
 import cv2
 from os import listdir, rename
 from os.path import isfile, join
 
 ################################################################################
 # Set paths:
-input_dataset = '../datasets/diagrams/unused'
-output_dataset_diagrams = '../datasets/diagrams'
-output_dataset = '../datasets/unlabeled_squares'
-output_dataset_black = output_dataset + '/black'
-output_dataset_white = output_dataset + '/white'
+input_dataset = "../datasets/diagrams/unused"
+output_dataset_diagrams = "../datasets/diagrams"
+output_dataset = "../datasets/unlabeled_squares"
+output_dataset_black = output_dataset + "/black"
+output_dataset_white = output_dataset + "/white"
 ################################################################################
 
 
@@ -31,7 +30,7 @@ def split(d):
     return l
 
 
-def getSquares(diagram):
+def get_squares(diagram):
     height, width, channels = diagram.shape
 
     # lists with 9 elements each ( (begin,end) pairs )
@@ -53,18 +52,19 @@ def getSquares(diagram):
 
 ################################################################################
 ################################################################################
-# Read 'count' from file
 
-countFile = open(("count_squares.txt"), 'r')
-count = int(countFile.readline().strip())
-countFile.close()
+
+# Read 'count' from file
+count_file = open("count_squares.txt", "r")
+count = int(count_file.readline().strip())
+count_file.close()
 ################################################################################
 
 files = [f for f in listdir(input_dataset) if isfile(join(input_dataset, f))]
 
 for f in files:
     diagram = cv2.imread(input_dataset + '/' + f)
-    black_squares, white_squares = getSquares(diagram)
+    black_squares, white_squares = get_squares(diagram)
     for square in black_squares:
         smallSquare = cv2.resize(square, (32, 32))
         nameOfFile = output_dataset_black + "/square" + str(count + 1) + ".jpg"
@@ -81,7 +81,7 @@ for f in files:
 ################################################################################
 # Save counter
 
-countFile = open(("count_squares.txt"), 'w')
+countFile = open("count_squares.txt", "w")
 countFile.write(str(count))
 countFile.close()
 ################################################################################
