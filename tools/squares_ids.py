@@ -7,6 +7,16 @@ dataset_squares: str = "../datasets/squares"
 ################################################################################
 
 
+def get_id_to_square_dict() -> dict:
+    result = {}
+    squares_ids = get_squares_ids()
+    for square_color, pieces in squares_ids.items():
+        for piece, piece_id in pieces.items():
+            result[piece_id] = square_color + "_" + piece
+
+    return result
+
+
 def get_squares_ids() -> dict:
     """
     :return: squares_ids.json as python dict

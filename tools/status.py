@@ -17,6 +17,7 @@ def print_status_squares() -> None:
     print("S Q U A R E S")
     print()
     paths: dict = get_squares_ids_absolute_paths()
+    count_all: int = 0
 
     print("black_square:")
     for path in paths:
@@ -24,6 +25,7 @@ def print_status_squares() -> None:
             number_of_squares = len(
                 [f for f in listdir(path) if isfile(join(path, f))]
             )
+            count_all += number_of_squares
             print("\t" + basename(path), ":", number_of_squares)
 
     print("white_square:")
@@ -32,8 +34,11 @@ def print_status_squares() -> None:
             number_of_squares = len(
                 [f for f in listdir(path) if isfile(join(path, f))]
             )
+            count_all += number_of_squares
             print("\t" + basename(path), ":", number_of_squares)
 
+    print()
+    print("All squares:", count_all)
     print("************************************************************")
 
 

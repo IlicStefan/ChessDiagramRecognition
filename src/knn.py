@@ -13,12 +13,12 @@ class KNearestNeighbor(object):
         self.Xtr = X
         self.ytr = y
 
-    def predict(self, X, distance='L1', k=1):
+    def predict(self, X, distance="L1", k=1):
         num_test = X.shape[0]
         Ypred = np.zeros(num_test, dtype=self.ytr.dtype)
 
         for i in range(num_test):
-            if distance == 'L2':
+            if distance == "L2":
                 distances = np.sum((self.Xtr - X[i, :]) ** 2, axis=1)
             else:
                 distances = np.sum(np.abs(self.Xtr - X[i, :]), axis=1)

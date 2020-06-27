@@ -2,9 +2,8 @@
 # Use this script to classify unlabeled squares
 ################################################################################
 
-import numpy as np
-import cv2
-import Tkinter 
+import cv2 as cv
+import tkinter as tk
 from PIL import Image, ImageTk
 import sys
 from os import listdir
@@ -13,8 +12,8 @@ import os
 
 ################################################################################
 # Set paths:
-input_dataset = '../datasets/unlabeled_squares/'
-output_dataset = '../datasets/squares/'
+input_dataset = "../datasets/unlabeled_squares/"
+output_dataset = "../datasets/squares/"
 ################################################################################
 
 OPTIONS = [
@@ -35,16 +34,18 @@ OPTIONS = [
 
 i = 0
 ################################################################################
+
+
 def classify():
     global i
-    output = output_dataset + sys.argv[1] + '_square/' + menu.get() + '/'
+    output = output_dataset + sys.argv[1] + "_square/" + menu.get() + "/"
     os.rename(path + squares[i], output + squares[i])
     i = i + 1
     if i >= len(squares):
-        print 'No more files!'
+        print("No more files!")
         sys.exit()
     else:
-        print i, '/', len(squares)
+        print(i, "/", len(squares))
     showImage(path + squares[i])
     
     
@@ -55,9 +56,9 @@ def showImage(squarePath):
 
 
 def loadImage(squarePath):
-    img = cv2.imread(squarePath)
-    b,g,r = cv2.split(img)
-    img = cv2.merge((r,g,b))
+    img = cv.imread(squarePath)
+    b, g, r = cv.split(img)
+    img = cv.merge((r, g, b))
     im = Image.fromarray(img)
     imgtk = ImageTk.PhotoImage(image=im)
     return imgtk
@@ -65,19 +66,19 @@ def loadImage(squarePath):
 ################################################################################
 ################################################################################
 if len(sys.argv) < 2:
-    print "Usage:\npython classify.py [black|white]"
+    prin("Usage:\npython classify.py [black|white]")
     sys.exit()
 
 path = input_dataset + sys.argv[1]
 squares = [f for f in listdir(path) if isfile(join(path, f))]
 
 if len(squares) == 0:
-    print 'No more files!'
+    print("No more files!")
     sys.exit()
 
-path += '/'
+path += "/"
 
-root = Tkinter.Tk()
+root = tkinter.Tk()
 root.minsize(300, 300)
 
 imgtk = loadImage(path + squares[i])

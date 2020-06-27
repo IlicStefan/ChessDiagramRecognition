@@ -17,6 +17,7 @@ output_dataset_black = output_dataset + '/black'
 output_dataset_white = output_dataset + '/white'
 ################################################################################
 
+
 def split(d):
     l = [0]
     i = d / 8
