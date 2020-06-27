@@ -17,20 +17,25 @@ and identify each piece:
 - NumPy
 - OpenCV
 - Tkinter
+- And many more :(
 
 ## :pushpin: Tasks
-- [X] Detect 2D chess diagram in image using OpenCV.  
-- [X] Collect more labeled data (both diagrams and squares).  
-- [ ] Implement various machine learning algorithms to classify chess squares, and choose which work the best.  
-- [ ] Use 'diagrams' dataset for detection (via deep learning), and compare it with previous methods.  
+- [X] Migrate Python2 to Python3
+- [ ] Refactor tools/raw_diagrams_to_diagrams.py
+- [ ] Refactor tools/diagrams_to_squares.py
+- [ ] Improve detection (Detect even rotated diagrams)
+- [ ] Build Application.py
+- [ ] Build JavaScript Application
+- [ ] Data augmentation
+- [ ] Play to different learning models (use transfer learning)
+- [ ] Collect more labeled data (both diagrams and squares)
 
 ## :books: Datasets
 - *diagrams* - croped diagrams from images  
 - *squares* - divided into *black* and *white* subsets, each with 13 classes
 
 ## :bug: Known bugs
-- Some diagrams in the photos may be rotated or distorted.  
-- Not all diagrams are wrapped with black bounding box!
+- For now, these are all features :)
 
 ## :mortar_board: Author  
 Stefan Ilic  
