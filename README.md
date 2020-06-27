@@ -27,7 +27,7 @@ and identify each piece:
 - [ ] Build Application.py
 - [ ] Build JavaScript Application
 - [ ] Data augmentation
-- [ ] Play to different learning models (use transfer learning)
+- [ ] Play with different learning models (use transfer learning)
 - [ ] Collect more labeled data (both diagrams and squares)
 
 ## :books: Datasets
