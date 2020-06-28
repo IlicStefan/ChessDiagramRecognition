@@ -11,29 +11,30 @@ dataset_squares: str = "../datasets/squares.csv"
 
 
 def get_square_name_from_id(identifier: int) -> str:
-    d = get_id_to_square_dict()
-    return d[identifier]
+    return get_id_to_square_dict()[identifier]
 
 
-def load_data():
+def load_data() -> np.ndarray:
     absolute_path = get_absolute_path(dataset_squares, __file__)
     assert exists(absolute_path), "'%s' must be a valid directory path" % absolute_path
-    squares_data = np.genfromtxt(absolute_path, delimiter=",", dtype=np.uint8)
-    return squares_data
+    return np.genfromtxt(absolute_path, delimiter=",", dtype=np.uint8)
 
 
 class Application(tk.Frame):
-    def __init__(self, root):
+    def __init__(self, root, *args, **kwargs):
+        tk.Frame.__init__(self, root, *args, **kwargs)
+        self.parent = root
+
         squares_data = load_data()
         self.X = squares_data[:, 1:].reshape((-1, 32, 32))
         self.Y = squares_data[:, 0]
+
         self.root = root
         self.root.title("Squares")
         self.root.geometry("300x200")
 
         # entry
         self.entry_widget = tk.Entry(root)
-        self.entry_widget.insert(tk.END, "0")
         self.entry_widget.place(x=140, y=70, width=100)
 
         # button
