@@ -1,45 +1,64 @@
 ################################################################################
 # Crop 'diagrams' from 'raw_diagrams'
 ################################################################################
+from relative_to_absolute_path import get_absolute_path
 
-import numpy as np
-import cv2
-from os import listdir, remove
-from os.path import isfile, join
 import sys
+sys.path.insert(0, get_absolute_path("../src", __file__))
 
-sys.path.insert(0, '../src')
-from detection import getDiagramPosition
+import cv2 as cv
+from os import listdir, remove
+from os.path import isfile, join, exists
+from detection import get_diagram_position
+################################################################################
 ################################################################################
 # Set paths:
-input_dataset: str = "../datasets/raw_diagrams"
-output_dataset: str = "../datasets/diagrams/unused"
+input_dataset: str = get_absolute_path("../datasets/raw_diagrams", __file__)
+assert exists(input_dataset), "'%s' must be a valid directory path" % input_dataset
+
+output_dataset: str = get_absolute_path("../datasets/unused_diagrams", __file__)
+assert exists(output_dataset), "'%s' must be a valid directory path" % output_dataset
+################################################################################
 ################################################################################
 
-# functions
 
-################################################################################
-################################################################################
 # Read 'count' from file
+def get_counter() -> int:
+    with open(get_absolute_path("count_diagrams.txt", __file__), "r") as counter_file:
+        return int(counter_file.readline().strip())
 
-countFile = open("count_diagrams.txt", "r")
-count = int(countFile.readline().strip())
-countFile.close()
+
+################################################################################
 ################################################################################
 
-files = [f for f in listdir(input_dataset) if isfile(join(input_dataset, f))]
-for f in files:
-    raw_diagram = cv2.imread(input_dataset + "/" + f)
-    x, y, w, h = getDiagramPosition(raw_diagram)
-    nameOfFile = output_dataset + "/d" + str(count + 1) + ".jpg"
-    cv2.imwrite(nameOfFile, raw_diagram[y+1:y+h-1, x+1:x+w-1])
-    remove(input_dataset + "/" + f)
-    count += 1
-    
-################################################################################
-# Save counter
 
-countFile = open("count_diagrams.txt", "w")
-countFile.write(str(count))
-countFile.close()
+# Save 'count'
+def save_counter(count: int) -> None:
+    with open(get_absolute_path("count_diagrams.txt", __file__), "w") as counter_file:
+        counter_file.write(str(count) + "\n")
+
+
 ################################################################################
+################################################################################
+
+
+def main():
+    counter = get_counter()
+
+    files = [f for f in listdir(input_dataset) if isfile(join(input_dataset, f))]
+    for f in files:
+        raw_diagram = cv.imread(input_dataset + "/" + f)
+        x, y, w, h = get_diagram_position(raw_diagram)
+        name_of_file = output_dataset + "/d" + str(counter + 1) + ".jpg"
+        cv.imwrite(name_of_file, raw_diagram[y+2: y+h-2, x+2: x+w-2])
+        remove(input_dataset + "/" + f)
+        counter += 1
+
+    save_counter(counter)
+
+
+################################################################################
+################################################################################
+
+
+main()
