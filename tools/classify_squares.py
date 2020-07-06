@@ -1,19 +1,22 @@
 ################################################################################
 # Use this script to classify unlabeled squares
 ################################################################################
-
+from relative_to_absolute_path import get_absolute_path
 import cv2 as cv
 import tkinter as tk
 from PIL import Image, ImageTk
 import sys
 from os import listdir
-from os.path import isfile, join
+from os.path import isfile, join, exists
 import os
 
 ################################################################################
 # Set paths:
-input_dataset: str = "../datasets/unlabeled_squares/"
-output_dataset: str = "../datasets/squares/"
+input_dataset: str = get_absolute_path("../datasets/unlabeled_squares/", __file__)
+assert exists(input_dataset), "'%s' must be a valid directory path" % input_dataset
+
+output_dataset: str = get_absolute_path("../datasets/squares/", __file__)
+assert exists(output_dataset), "'%s' must be a valid directory path" % output_dataset
 ################################################################################
 
 OPTIONS = [
@@ -46,22 +49,23 @@ def classify():
         sys.exit()
     else:
         print(i, "/", len(squares))
-    showImage(path + squares[i])
+    show_image(path + squares[i])
     
     
-def showImage(squarePath):
-    imgtk = loadImage(squarePath)
-    labelImage.configure(image = imgtk)
-    labelImage.image = imgtk
+def show_image(square_path: str):
+    imgtk = load_image(square_path)
+    label_image.configure(image=imgtk)
+    label_image.image = imgtk
 
 
-def loadImage(squarePath):
-    img = cv.imread(squarePath)
+def load_image(square_path: str):
+    img = cv.imread(square_path)
     b, g, r = cv.split(img)
     img = cv.merge((r, g, b))
     im = Image.fromarray(img)
     imgtk = ImageTk.PhotoImage(image=im)
     return imgtk
+
 
 ################################################################################
 ################################################################################
@@ -83,13 +87,13 @@ path += "/"
 root = tk.Tk()
 root.minsize(300, 300)
 
-imgtk = loadImage(path + squares[i])
-labelImage = tk.Label(root, image = imgtk)
-labelImage.pack()
+imgtk = load_image(path + squares[i])
+label_image = tk.Label(root, image=imgtk)
+label_image.pack()
 
 menu = tk.StringVar(root)
 menu.set(OPTIONS[0])
-option = apply(tk.OptionMenu, (root, menu) + tuple(OPTIONS))
+option = tk.OptionMenu(*(root, menu) + tuple(OPTIONS))
 option.pack()
 
 button = tk.Button(root, text="classify", command=classify)

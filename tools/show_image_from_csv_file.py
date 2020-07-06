@@ -1,12 +1,16 @@
+################################################################################
 from relative_to_absolute_path import get_absolute_path
 from squares_ids import get_id_to_square_dict
 from os.path import exists
 import numpy as np
 import tkinter as tk
 from PIL import Image, ImageTk
+
+################################################################################
 ################################################################################
 # Set paths:
 dataset_squares: str = "../datasets/squares.csv"
+################################################################################
 ################################################################################
 
 
@@ -14,10 +18,18 @@ def get_square_name_from_id(identifier: int) -> str:
     return get_id_to_square_dict()[identifier]
 
 
+################################################################################
+################################################################################
+
+
 def load_data() -> np.ndarray:
     absolute_path = get_absolute_path(dataset_squares, __file__)
     assert exists(absolute_path), "'%s' must be a valid directory path" % absolute_path
     return np.genfromtxt(absolute_path, delimiter=",", dtype=np.uint8)
+
+
+################################################################################
+################################################################################
 
 
 class Application(tk.Frame):
@@ -78,10 +90,18 @@ class Application(tk.Frame):
         self.label["text"] = "Square id:\n" + get_square_name_from_id(self.Y[index_int])
 
 
+################################################################################
+################################################################################
+
+
 def main():
     root = tk.Tk()
     Application(root)
     root.mainloop()
+
+
+################################################################################
+################################################################################
 
 
 main()

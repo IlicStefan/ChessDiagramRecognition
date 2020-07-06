@@ -5,51 +5,60 @@
 from relative_to_absolute_path import get_absolute_path
 import cv2 as cv
 from os import listdir, rename
-from os.path import isfile, join
+from os.path import isfile, join, exists
 
 ################################################################################
+################################################################################
 # Set paths:
-input_dataset = "../datasets/diagrams/unused"
-input_dataset = get_absolute_path(input_dataset, __file__)
-
-output_dataset_diagrams = "../datasets/diagrams"
-output_dataset_diagrams = get_absolute_path(output_dataset_diagrams, __file__)
-
-output_dataset = "../datasets/unlabeled_squares"
-output_dataset = get_absolute_path(output_dataset, __file__)
+input_dataset = get_absolute_path("../datasets/unused_diagrams", __file__)
+output_dataset_diagrams = get_absolute_path("../datasets/diagrams", __file__)
+output_dataset = get_absolute_path("../datasets/unlabeled_squares", __file__)
 
 output_dataset_black = output_dataset + "/black"
+assert exists(output_dataset_black), "'%s' must be a valid directory path" % output_dataset_black
+
 output_dataset_white = output_dataset + "/white"
+assert exists(output_dataset_white), "'%s' must be a valid directory path" % output_dataset_white
+################################################################################
 ################################################################################
 
 
 # Read 'count' from file
 def get_counter() -> int:
-    count_file = open("count_squares.txt", "r")
-    count = int(count_file.readline().strip())
-    count_file.close()
-    return count
+    with open(get_absolute_path("count_squares.txt", __file__), "r") as counter_file:
+        return int(counter_file.readline().strip())
+
+
+################################################################################
+################################################################################
 
 
 # Save 'count'
 def save_counter(count: int) -> None:
-    count_file = open("count_squares.txt", "w")
-    count_file.write(str(count))
-    count_file.close()
+    with open(get_absolute_path("count_squares.txt", __file__), "w") as counter_file:
+        counter_file.write(str(count) + "\n")
+
+
+################################################################################
+################################################################################
 
 
 def split(d: int) -> list:
     result = [0]
-    i = d / 8
-    r = d % 8
+    i: int = d // 8
+    r: int = d % 8
     for k in range(8):
         if r > 0:
-            result.append(int((k + 1) * i + 1))
+            result.append((k + 1) * i + 1)
             r -= 1
         else:
-            result.append(int((k + 1) * i))
+            result.append((k + 1) * i)
 
     return result
+
+
+################################################################################
+################################################################################
 
 
 def get_squares(diagram):
@@ -73,28 +82,37 @@ def get_squares(diagram):
     return black_squares, white_squares
 
 
+################################################################################
+################################################################################
+
+
 def main():
-    count = get_counter()
+    counter = get_counter()
 
     files = [f for f in listdir(input_dataset) if isfile(join(input_dataset, f))]
 
     for f in files:
         diagram = cv.imread(input_dataset + "/" + f)
         black_squares, white_squares = get_squares(diagram)
+
         for square in black_squares:
             small_square = cv.resize(square, (32, 32))
-            name_of_file = output_dataset_black + "/square" + str(count + 1) + ".jpg"
+            name_of_file = output_dataset_black + "/square" + str(counter + 1) + ".jpg"
             cv.imwrite(name_of_file, small_square)
-            count += 1
+            counter += 1
         for square in white_squares:
             small_square = cv.resize(square, (32, 32))
-            name_of_file = output_dataset_white + "/square" + str(count + 1) + ".jpg"
+            name_of_file = output_dataset_white + "/square" + str(counter + 1) + ".jpg"
             cv.imwrite(name_of_file, small_square)
-            count += 1
-        rename(input_dataset + "/" + f,
-               output_dataset_diagrams + "/" + f)
+            counter += 1
 
-    save_counter(count)
+        rename(input_dataset + "/" + f, output_dataset_diagrams + "/" + f)
+
+    save_counter(counter)
+
+
+################################################################################
+################################################################################
 
 
 main()

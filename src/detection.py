@@ -8,7 +8,6 @@ import cv2 as cv
 
 def get_diagram_position(color_image):
     assert isinstance(color_image, (np.ndarray, np.generic)), "color_image must be a numpy array"
-    assert color_image.shape == ()
 
     # preprocessing
     image = cv.cvtColor(color_image, cv.COLOR_BGR2GRAY)
@@ -23,9 +22,9 @@ def get_diagram_position(color_image):
     image = cv.morphologyEx(image, cv.MORPH_CLOSE, kernel)
     
     #crop diagram
-    _, contours, h = cv.findContours(image,
-                                     cv.RETR_TREE,
-                                     cv.CHAIN_APPROX_SIMPLE)
+    contours, h = cv.findContours(image,
+                                  cv.RETR_TREE,
+                                  cv.CHAIN_APPROX_SIMPLE)
     contour = max(contours, key=cv.contourArea)
     x, y, w, h = cv.boundingRect(contour)
     return x, y, w, h
