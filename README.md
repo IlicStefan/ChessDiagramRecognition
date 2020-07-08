@@ -21,8 +21,8 @@ and identify each piece:
 
 ## :pushpin: Tasks
 - [X] Migrate Python2 to Python3
-- [ ] Refactor tools/raw_diagrams_to_diagrams.py
-- [ ] Refactor tools/diagrams_to_squares.py
+- [X] Refactor tools/raw_diagrams_to_diagrams.py
+- [X] Refactor tools/diagrams_to_squares.py
 - [ ] Improve detection (Detect even rotated diagrams)
 - [ ] Build Application.py
 - [ ] Build JavaScript Application
