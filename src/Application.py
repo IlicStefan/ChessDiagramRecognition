@@ -8,7 +8,6 @@ sys.path.insert(0, join(abspath(dirname(__file__)), "../tools"))
 from relative_to_absolute_path import get_absolute_path
 import tkinter as tk
 from PIL import Image, ImageTk
-import pytesseract
 import cv2 as cv
 
 ################################################################################
