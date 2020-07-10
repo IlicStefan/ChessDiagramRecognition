@@ -6,9 +6,10 @@ import sys
 sys.path.insert(0, join(abspath(dirname(__file__)), "../tools"))
 
 from relative_to_absolute_path import get_absolute_path
-import tkinter.filedialog
 import tkinter as tk
 from PIL import Image, ImageTk
+import pytesseract
+import cv2 as cv
 
 ################################################################################
 ################################################################################
@@ -70,9 +71,9 @@ class ChessBoard(tk.Frame):
         )
         self.canvas.create_image(0, 0, image=self.board_image, anchor=tk.NW)
 
-        self.pieces = load_pieces()
-        self.rook = self.pieces["wR"]
-        self.canvas.create_image(0, 0, image=self.rook, anchor=tk.NW)
+        # self.pieces = load_pieces()
+        # self.showed_pieces = self.pieces["wR"]
+        # self.canvas.create_image(0, 0, image=self.rook, anchor=tk.NW)
 
 
 ################################################################################
@@ -83,19 +84,54 @@ class LeftSide(tk.Frame):
     def __init__(self, root, *args, **kwargs):
         tk.Frame.__init__(self, root, *args, **kwargs)
 
-        self.camera_button = tk.Button(self, text="Open camera", command= lambda: print("Camera"))
+        self.camera_button = tk.Button(self, text="Open camera", command=self.show_frame)
         self.camera_button.place(x=50, y=20)
 
-        self.browse_button = tk.Button(self, text="Browse file", command=lambda: print("Browse"))
+        self.browse_button = tk.Button(self, text="Browse file", command=self.show_image)
         self.browse_button.place(x=200, y=20)
 
-        self.canvas = tk.Canvas(self, width=400, height=400, background="Red")
+        self.image_on_canvas = None
+        self.canvas = tk.Canvas(self, width=400, height=400)
         self.canvas.place(x=50, y=150)
 
-        # self.board_image = ImageTk.PhotoImage(
-        #     Image.open(get_absolute_path("../resources/board.jpg", __file__)).resize((400, 400))
-        # )
-        # self.canvas.create_image(0, 0, image=self.board_image, anchor=tk.NW)
+        self.cv_video_capture = None
+        self.video_camera_on = False
+
+    def show_frame(self):
+        self.video_camera_on = True
+        self.show_video_frame()
+
+    def show_video_frame(self):
+        if not self.video_camera_on:
+            return
+        if not self.cv_video_capture:
+            self.cv_video_capture = cv.VideoCapture(0)
+            self.cv_video_capture.set(cv.CAP_PROP_FRAME_WIDTH, 400)
+            self.cv_video_capture.set(cv.CAP_PROP_FRAME_HEIGHT, 400)
+
+        _, frame = self.cv_video_capture.read()
+        frame = cv.flip(frame, 1)
+        cv2image = cv.cvtColor(frame, cv.COLOR_BGR2RGBA)
+        image = Image.fromarray(cv2image)
+        image_tk = ImageTk.PhotoImage(image=image)
+        self.canvas.delete(tk.ALL)
+        self.canvas.image_tk = image_tk
+        self.canvas.create_image(0, 0, image=image_tk, anchor=tk.NW)
+        if self.cv_video_capture:
+            self.canvas.after(10, self.show_video_frame)
+
+    def show_image(self):
+        self.video_camera_on = False
+        if self.cv_video_capture:
+            self.cv_video_capture = self.cv_video_capture.release()
+        self.canvas.delete(tk.ALL)
+        from tkinter import filedialog
+        file_path = filedialog.askopenfilename(title="Select file")
+        image_tk = ImageTk.PhotoImage(
+            Image.open(file_path).resize((400, 400))
+        )
+        self.canvas.image_tk = image_tk
+        self.canvas.create_image(0, 0, image=image_tk, anchor=tk.NW)
 
 
 ################################################################################
@@ -122,6 +158,7 @@ class Application(tk.Frame):
 
 def main():
     root = tk.Tk()
+    root.bind("<Escape>", lambda e: root.quit())
     Application(root)
     root.minsize(height=600, width=1200)
     root.maxsize(height=600, width=1200)
