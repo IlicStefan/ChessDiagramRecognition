@@ -3,6 +3,10 @@ astor==0.8.1
 attrs==19.3.0
 backcall==0.2.0
 bleach==3.1.5
+cairocffi===file-.cairocffi-VERSION
+CairoSVG==2.4.2
+cffi==1.14.0
+cssselect2==0.3.0
 cycler==0.10.0
 decorator==4.4.2
 defusedxml==0.6.0
@@ -49,6 +53,7 @@ prometheus-client==0.8.0
 prompt-toolkit==3.0.5
 protobuf==3.12.2
 ptyprocess==0.6.0
+pycparser==2.20
 Pygments==2.6.1
 pyparsing==2.4.7
 pyrsistent==0.16.0
@@ -66,6 +71,7 @@ tensorflow-estimator==1.14.0
 termcolor==1.1.0
 terminado==0.8.3
 testpath==0.4.4
+tinycss2==1.0.2
 tornado==6.0.4
 traitlets==4.3.3
 typed-ast==1.4.1
