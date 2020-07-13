@@ -7,7 +7,7 @@ sys.path.insert(0, join(abspath(dirname(__file__)), "../tools"))
 
 from relative_to_absolute_path import get_absolute_path
 import tkinter as tk
-from PIL import Image, ImageTk
+from PIL import Image, ImageTk, UnidentifiedImageError
 import cv2 as cv
 
 ################################################################################
@@ -126,12 +126,14 @@ class LeftSide(tk.Frame):
         self.canvas.delete(tk.ALL)
         from tkinter import filedialog
         file_path = filedialog.askopenfilename(title="Select file")
-        image_tk = ImageTk.PhotoImage(
-            Image.open(file_path).resize((400, 400))
-        )
-        self.canvas.image_tk = image_tk
-        self.canvas.create_image(0, 0, image=image_tk, anchor=tk.NW)
-
+        if file_path:
+            try:
+                image = Image.open(file_path)
+                image_tk = ImageTk.PhotoImage(image.resize((400, 400)))
+                self.canvas.image_tk = image_tk
+                self.canvas.create_image(0, 0, image=image_tk, anchor=tk.NW)
+            except UnidentifiedImageError:
+                pass
 
 ################################################################################
 ################################################################################
