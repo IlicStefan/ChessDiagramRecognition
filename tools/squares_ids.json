@@ -21,7 +21,7 @@
     "black_knight": 16,
     "black_bishop": 17,
     "black_queen": 18,
-    "black_king": 18,
+    "black_king": 19,
     "white_pawn": 20,
     "white_rook": 21,
     "white_knight": 22,
