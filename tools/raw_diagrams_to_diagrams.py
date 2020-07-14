@@ -48,9 +48,9 @@ def main():
     files = [f for f in listdir(input_dataset) if isfile(join(input_dataset, f))]
     for f in files:
         raw_diagram = cv.imread(input_dataset + "/" + f)
-        x, y, w, h = get_diagram_position(raw_diagram)
+        diagram_image = get_diagram_position(raw_diagram)
         name_of_file = output_dataset + "/d" + str(counter + 1) + ".jpg"
-        cv.imwrite(name_of_file, raw_diagram[y+2: y+h-2, x+2: x+w-2])
+        cv.imwrite(name_of_file, diagram_image[2: -2, 2: -2])
         remove(input_dataset + "/" + f)
         counter += 1
 
