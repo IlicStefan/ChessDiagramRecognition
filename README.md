@@ -23,12 +23,12 @@ and identify each piece:
 - [X] Migrate Python2 to Python3
 - [X] Refactor tools/raw_diagrams_to_diagrams.py
 - [X] Refactor tools/diagrams_to_squares.py
-- [ ] Improve detection (Detect even rotated diagrams)
-- [ ] Build Application.py
+- [X] Improve detection (Detect even rotated diagrams)
+- [X] Build Application.py
 - [ ] Build JavaScript Application
-- [ ] Data augmentation
+- [X] Data augmentation
 - [ ] Play with different learning models (use transfer learning)
-- [ ] Collect more labeled data (both diagrams and squares)
+- [X] Collect more labeled data (both diagrams and squares)
 
 ## :books: Datasets
 - *diagrams* - croped diagrams from images  
