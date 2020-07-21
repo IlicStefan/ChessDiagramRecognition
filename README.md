@@ -3,7 +3,7 @@
 Detect and identify a 2D chessboard and the configuration of its pieces through the  
 application of image processing.  
 
-## :page_facing_up: Screenshot
+## :movie_camera: Screenshot
 ![alt text](https://github.com/IlicStefan/ChessDiagramRecognition/blob/master/screenshots/demo_video.gif)
 
 ## :page_facing_up: Description
@@ -44,4 +44,4 @@ and identify each piece:
 - For now, these are all features :)
 
 ## :mortar_board: Author  
-Stefan Ilic  
+Stefan Ilić  
