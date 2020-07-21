@@ -4,7 +4,7 @@ Detect and identify a 2D chessboard and the configuration of its pieces through 
 application of image processing.  
 
 ## :movie_camera: Screenshot
-![alt text](https://github.com/IlicStefan/ChessDiagramRecognition/blob/master/screenshots/demo_video.gif)
+<img src="https://github.com/IlicStefan/ChessDiagramRecognition/blob/master/screenshots/demo_video.gif" width="600" height="300" />
 
 ## :page_facing_up: Description
 First, we need to load image:  
