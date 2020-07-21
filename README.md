@@ -3,6 +3,8 @@
 Detect and identify a 2D chessboard and the configuration of its pieces through the  
 application of image processing.  
 
+## :page_facing_up: Screenshot
+
 ## :page_facing_up: Description
 First, we need to load image:  
 ![alt text](https://github.com/mr11261/Chess-diagram-recognition/blob/master/description/raw_image.jpg)  
@@ -17,7 +19,9 @@ and identify each piece:
 - NumPy
 - OpenCV
 - Tkinter
-- And many more :(
+- Tensorflow
+- Keras
+- And many more ...
 
 ## :pushpin: Tasks
 - [X] Migrate Python2 to Python3
@@ -27,10 +31,11 @@ and identify each piece:
 - [X] Build Application.py
 - [ ] Build JavaScript Application
 - [X] Data augmentation
-- [ ] Play with different learning models (use transfer learning)
+- [X] Play with different learning models (use transfer learning)
 - [X] Collect more labeled data (both diagrams and squares)
 
 ## :books: Datasets
+- [Kaggle](https://www.kaggle.com/mr11261/chess-squares-from-chess-diagrams)
 - *diagrams* - croped diagrams from images  
 - *squares* - divided into *black* and *white* subsets, each with 13 classes
 
