@@ -75,9 +75,9 @@ def get_squares(diagram):
         for j in range(8):
             elem = diagram[h_list[i]:h_list[i+1], w_list[j]:w_list[j+1]]
             if (i + j) % 2 == 1:
-                black_squares.append(elem)
+                black_squares.append((elem, j, i))
             else:
-                white_squares.append(elem)
+                white_squares.append((elem, j, i))
                 
     return black_squares, white_squares
 
@@ -95,12 +95,12 @@ def main():
         diagram = cv.imread(input_dataset + "/" + f)
         black_squares, white_squares = get_squares(diagram)
 
-        for square in black_squares:
+        for square, _, _ in black_squares:
             small_square = cv.resize(square, (32, 32))
             name_of_file = output_dataset_black + "/square" + str(counter + 1) + ".jpg"
             cv.imwrite(name_of_file, small_square)
             counter += 1
-        for square in white_squares:
+        for square, _, _ in white_squares:
             small_square = cv.resize(square, (32, 32))
             name_of_file = output_dataset_white + "/square" + str(counter + 1) + ".jpg"
             cv.imwrite(name_of_file, small_square)
