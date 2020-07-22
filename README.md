@@ -7,11 +7,11 @@ application of image processing.
 <img src="https://github.com/IlicStefan/ChessDiagramRecognition/blob/master/screenshots/demo_video.gif" width="600" height="300" />
 
 ## :page_facing_up: Description
-First, we need to load image:  
+First, we need to load an image:  
 ![alt text](https://github.com/mr11261/Chess-diagram-recognition/blob/master/description/raw_image.jpg)  
-Next job is to extract 2D diagram:  
+Next job is to extract a 2D diagram:  
 ![alt text](https://github.com/mr11261/Chess-diagram-recognition/blob/master/description/chess_diagram.jpg)  
-Than, we will divide the diagram into 64 squares,  
+Then, we will divide the diagram into 64 squares,  
 and identify each piece:  
 ![alt text](https://github.com/mr11261/Chess-diagram-recognition/blob/master/description/chess_piece.jpg) ==> White queen!  
 
@@ -37,7 +37,7 @@ and identify each piece:
 
 ## :books: Datasets
 - [Kaggle](https://www.kaggle.com/mr11261/chess-squares-from-chess-diagrams)
-- *diagrams* - croped diagrams from images  
+- *diagrams* - cropped diagrams from images  
 - *squares* - divided into *black* and *white* subsets, each with 13 classes
 
 ## :bug: Known bugs
